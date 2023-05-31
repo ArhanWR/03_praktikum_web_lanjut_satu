@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ContactUsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,5 +15,29 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+
+Route::prefix('products')->group(function () {
+    Route::get('/', function () {
+        return view('products');
+    });
+});
+
+Route::get('/news/{id}', function ($id) {
+    return view('news', ['id' => $id]);
+});
+
+Route::prefix('program')->group(function () {
+    Route::get('/', function () {
+        return view('program');
+    });
+});
+
+Route::get('/about-us', function () {
+    return view('about-us');
+});
+
+Route::resource('contact-us', ContactUsController::class)->only([
+    'index'
+]);
